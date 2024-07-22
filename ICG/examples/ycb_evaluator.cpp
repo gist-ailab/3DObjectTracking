@@ -154,6 +154,7 @@ bool YCBEvaluator::Evaluate() {
     std::cerr << "Set up evaluator " << name_ << " first" << std::endl;
     return false;
   }
+  std::cout << "run_configurations_: " << run_configurations_.empty() << std::endl;
   if (run_configurations_.empty()) return false;
 
   // Evaluate all run configurations
@@ -228,7 +229,9 @@ bool YCBEvaluator::Evaluate() {
 
 void YCBEvaluator::SaveResults(std::filesystem::path path) const {
   std::ofstream ofs{path};
+  std::cout << &final_results_ << std::endl;
   for (auto const &[body_name, result] : final_results_) {
+    std::cout << body_name  << std::endl;
     ofs << body_name << "," << result.add_auc << "," << result.adds_auc << ","
         << result.execution_times.complete_cycle << ","
         << result.execution_times.start_modalities << ","
@@ -925,6 +928,9 @@ bool YCBEvaluator::CreateRunConfigurations() {
           run_configuration.tracked_body_names.push_back(body_name);
           run_configurations_.push_back(std::move(run_configuration));
         }
+        else {
+          std::cerr << "[2] Body " << body_name << " does not exist in sequence " << sequence_name << std::endl;
+        }
       }
     }
   } else {
@@ -1117,8 +1123,9 @@ void YCBEvaluator::GenerateKDTrees() {
 
 bool YCBEvaluator::BodyExistsInSequence(const std::string &sequence_name,
                                         const std::string &body_name) const {
-  std::filesystem::path path{dataset_directory_ / "data" / sequence_name /
-                             "000001-box.txt"};
+  std::filesystem::path path{dataset_directory_ / "poses/ground_truth/" / (sequence_name + "_002_master_chef_can.txt")};
+  std::cerr << "[1] Checking path: " << path.string() << std::endl; // 경로 출력하여 디버깅
+
   std::ifstream ifs{path.string(), std::ios::binary};
   if (!ifs.is_open() || ifs.fail()) {
     ifs.close();

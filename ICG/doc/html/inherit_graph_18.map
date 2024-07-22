@@ -1,0 +1,11 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classicg_1_1Renderer.html" title="Abstract class that defines a renderer as a single camera at a defined location." alt="" coords="5,81,113,108"/>
+<area shape="rect" id="node2" href="$classicg_1_1FocusedRenderer.html" title="Abstract Renderer class that defines a focused renderer that crops and scales the scene to focus on r..." alt="" coords="161,56,323,83"/>
+<area shape="rect" id="node6" href="$classicg_1_1FullRenderer.html" title="Abstract Renderer class that defines a full renderer that renders the image according to the image wi..." alt="" coords="177,107,307,133"/>
+<area shape="rect" id="node3" href="$classicg_1_1FocusedDepthRenderer.html" title="Abstract Renderer class that defines a focused depth renderer that extends the FocusedRenderer class ..." alt="" coords="371,56,571,83"/>
+<area shape="rect" id="node4" href="$classicg_1_1FocusedBasicDepthRenderer.html" title="Renderer that extends the focused depth renderer class with functionality from BasicDepthRendererCore..." alt="" coords="619,5,853,32"/>
+<area shape="rect" id="node5" href="$classicg_1_1FocusedNormalRenderer.html" title="Renderer that extends the focused depth renderer class with functionality from NormalRendererCore to ..." alt="" coords="631,56,841,83"/>
+<area shape="rect" id="node7" href="$classicg_1_1FullDepthRenderer.html" title="Abstract Renderer class that defines a full depth renderer that extends the FullRenderer class with f..." alt="" coords="385,107,556,133"/>
+<area shape="rect" id="node8" href="$classicg_1_1FullBasicDepthRenderer.html" title="Renderer that extends the full depth renderer class with functionality from BasicDepthRendererCore to..." alt="" coords="633,107,839,133"/>
+<area shape="rect" id="node9" href="$classicg_1_1FullNormalRenderer.html" title="Renderer that extends the full depth renderer class with functionality from NormalRendererCore to ren..." alt="" coords="647,157,825,184"/>
+</map>

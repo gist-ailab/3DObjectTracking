@@ -1,0 +1,11 @@
+poses/*
+poses/cosypose/*
+poses/ground_truth/*
+poses/posecnn_icp_rss2018/*
+poses/posecnn_rss2018/*
+poses/sundermeyer/*
+
+data/*
+build/*
+
+
