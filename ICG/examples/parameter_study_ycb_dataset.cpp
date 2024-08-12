@@ -5,8 +5,8 @@
 
 int main() {
   // Directories
-  std::filesystem::path dataset_directory{"/your/path/"};
-  std::filesystem::path external_directory{"/your/path/"};
+  std::filesystem::path dataset_directory{"/home/hee/workspace/src/3DObjectTracking/ICG/data/ycbv"};
+  std::filesystem::path external_directory{"/home/hee/workspace/src/3DObjectTracking/ICG/external"};
 
   constexpr bool kEvaluateSundermeyer = false;
   constexpr bool kEvaluateCosyPose = false;
@@ -54,7 +54,8 @@ int main() {
                                       "051_large_clamp",
                                       "052_extra_large_clamp",
                                       "061_foam_brick"};
-  std::vector<int> sequence_ids{48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59};
+  // std::vector<int> sequence_ids{48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59};
+  std::vector<int> sequence_ids{48};
 
   // Results
   int n_experiments = 1;

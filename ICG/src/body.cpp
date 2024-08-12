@@ -171,6 +171,12 @@ bool Body::LoadMeshData() {
   std::vector<tinyobj::material_t> materials;
   std::string warning;
   std::string error;
+  // // //  CHANGE THIS TO THE PATH OF THE OBJECT YOU WANT TO TRACK  // // //
+  geometry_path_ = "/home/hee/workspace/src/3DObjectTracking/ICG/data/ycbv/models/021_bleach_cleanser/textured.obj";
+  // geometry_path_ = "/home/hee/workspace/src/3DObjectTracking/ICG/data/ycbv/models/002_master_chef_can/textured.obj";
+  // geometry_path_ = "/home/hee/workspace/src/3DObjectTracking/ICG/data/ycbv/models_obj/obj_000002.obj";
+  std::cout << "geometry_path_: " << geometry_path_ << std::endl;
+
   if (!tinyobj::LoadObj(&attributes, &shapes, &materials, &warning, &error,
                         geometry_path_.string().c_str(), nullptr, true,
                         false)) {
@@ -178,6 +184,13 @@ bool Body::LoadMeshData() {
               << std::endl;
     return false;
   }
+  // if (!tinyobj::LoadObj(&attributes, &shapes, &materials, &warning, &error,
+  //                       geometry_path_.string().c_str(), nullptr, true,
+  //                       false)) {
+  //   std::cerr << "TinyObjLoader failed to load data from " << geometry_path_
+  //             << std::endl;
+  //   return false;
+  // }
   if (!error.empty()) std::cerr << error << std::endl;
 
   // Load vertices and scale them if needed

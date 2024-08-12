@@ -69,3 +69,28 @@ cd build/
 ./examples/evaluate_ycb_dataset
 ```
 
+## dataset change
+/home/hee/workspace/src/3DObjectTracking/ICG/data/ycbv/poses/ground_truth/0048_002_master_chef_can_backup.txt
+
+
+
+---------------------------------------------------------------------
+## RBOT dataset
+```
+cd data
+ln -s "/media/hee/MGTEC/dataset/RBOT_dataset"
+# set directory at evaluate_rbot_dataset.cpp
+```
+
+## build
+```
+cd build/
+cmake -DUSE_AZURE_KINECT=OFF -DUSE_REALSENSE=OFF ../
+make
+```
+
+## Execute
+```
+cd build/
+./examples/evaluate_rbot_dataset
+```

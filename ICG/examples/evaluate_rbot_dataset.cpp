@@ -5,9 +5,9 @@
 
 int main() {
   // Directories
-  std::filesystem::path dataset_directory{"/your/path/"};
-  std::filesystem::path external_directory{"/your/path/"};
-  std::filesystem::path result_directory{"/your/path/"};
+  std::filesystem::path dataset_directory{"/home/hee/workspace/src/3DObjectTracking/ICG/data/RBOT_dataset"};
+  std::filesystem::path external_directory{"/home/hee/workspace/src/3DObjectTracking/ICG/third_party"};
+  std::filesystem::path result_directory{"/home/hee/workspace/src/3DObjectTracking/ICG/output"};
 
   // Dataset configuration
   std::vector<std::string> body_names{
@@ -41,16 +41,23 @@ int main() {
     r->set_modeled_occlusion_radius(0.0f);
     r->set_modeled_occlusion_threshold(0.03f);
   });
+  std::cout << "1" << std::endl;
   evaluator.set_optimizer_setter([&](auto o) {
     o->set_tikhonov_parameter_rotation(1000.0f);
     o->set_tikhonov_parameter_translation(100000.0f);
   });
+  std::cout << "2" << std::endl;
   evaluator.set_tracker_setter([&](auto t) {
     t->set_n_update_iterations(2);
     t->set_n_corr_iterations(7);
   });
+  std::cout << "3" << std::endl;
   evaluator.set_visualize_all_results(false);
+  std::cout << "4" << std::endl;
   evaluator.SaveResults(result_directory);
+  std::cout << "5" << std::endl;
   evaluator.SetUp();
+  std::cout << "6" << std::endl;
   evaluator.Evaluate();
+  std::cout << "7" << std::endl;
 }

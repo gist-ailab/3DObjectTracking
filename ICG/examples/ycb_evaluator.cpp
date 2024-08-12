@@ -157,22 +157,31 @@ bool YCBEvaluator::Evaluate() {
   std::cout << "run_configurations_: " << run_configurations_.empty() << std::endl;
   if (run_configurations_.empty()) return false;
 
+  // visualize_tracking_ = true;
+  // visualize_frame_results_ = true;
+  std::cout << "Evaluate [1] " << "run_sequentially_: " << run_sequentially_ << "\tvisualize_tracking_: " << visualize_tracking_ << "\tvisualize_frame_results_: " << visualize_frame_results_ << std::endl;
+
   // Evaluate all run configurations
   results_.clear();
   final_results_.clear();
   if (run_sequentially_ || visualize_tracking_ || visualize_frame_results_) {
     auto renderer_geometry_ptr{std::make_shared<icg::RendererGeometry>("rg")};
+    std::cout << "Evaluate [2] " << std::endl;
     renderer_geometry_ptr->SetUp();
+    std::cout << "Evaluate [3] for" << std::endl;
     for (size_t i = 0; i < int(run_configurations_.size()); ++i) {
       std::vector<SequenceResult> sequence_results;
       if (!EvaluateRunConfiguration(run_configurations_[i],
                                     renderer_geometry_ptr, &sequence_results))
         continue;
+      std::cout << "Evaluate [4] " << i << std::endl;
       results_.insert(end(results_), begin(sequence_results),
                       end(sequence_results));
+      std::cout << "Evaluate [5] " << i << std::endl;
       for (const auto &sequence_result : sequence_results) {
         std::string title{sequence_result.sequence_name + ": " +
                           sequence_result.body_name};
+        std::cout << "Evaluate [6] " << std::endl;
         VisualizeResult(sequence_result.average_result, title);
       }
     }
@@ -905,6 +914,8 @@ bool YCBEvaluator::LoadDetectorPoses(
 
 void YCBEvaluator::VisualizeResult(const Result &result,
                                    const std::string &title) {
+                                    
+  std::cout << "VisualizeResult [1] ";
   std::cout << title << ": ";
   if (result.frame_index) std::cout << "frame " << result.frame_index << ": ";
   std::cout << "execution_time = " << result.execution_times.complete_cycle
@@ -918,6 +929,7 @@ bool YCBEvaluator::CreateRunConfigurations() {
   if (run_sequentially_ && !model_occlusions_region_ &&
       !model_occlusions_depth_) {
     for (int sequence_id : sequence_ids_) {
+      std::cout << "CreateRunConfigurations [1] " << sequence_id << std::endl;
       std::string sequence_name{SequenceIDToName(sequence_id)};
       for (const auto &body_name : evaluated_body_names_) {
         if (BodyExistsInSequence(sequence_name, body_name)) {
@@ -929,7 +941,7 @@ bool YCBEvaluator::CreateRunConfigurations() {
           run_configurations_.push_back(std::move(run_configuration));
         }
         else {
-          std::cerr << "[2] Body " << body_name << " does not exist in sequence " << sequence_name << std::endl;
+          std::cerr << "CreateRunConfigurations [2] Body " << body_name << " does not exist in sequence " << sequence_name << std::endl;
         }
       }
     }
@@ -1063,6 +1075,9 @@ void YCBEvaluator::LoadNFrames() {
 
 void YCBEvaluator::LoadPoseBegin() {
   body2sequence2pose_begin_.clear();
+  // std::cout << "LoadPoseBegin [0] sequence_ids_: " << sequence_ids_ << std::endl;
+  // std::cout << "LoadPoseBegin [1] " << sequence_ids_.size() << std::endl;
+  // std::cout << "LoadPoseBegin [2] " << min(sequence_ids_) << std::endl;
 #pragma omp parallel for
   for (int i = 0; i < tracked_body_names_.size(); ++i) {
     auto &body_name{tracked_body_names_[i]};
@@ -1070,6 +1085,8 @@ void YCBEvaluator::LoadPoseBegin() {
     for (int max_sequence_id : sequence_ids_) {
       int idx_begin = 0;
       for (int sequence_id = 0; sequence_id < max_sequence_id; ++sequence_id) {
+        // std::cout << "LoadPoseBegin [3] sequence_ids_: " << sequence_ids_ << std::endl;
+        std::cout << "LoadPoseBegin [3] max_sequence_id: " << max_sequence_id << std::endl;
         std::string sequence_name{SequenceIDToName(sequence_id)};
         if (BodyExistsInSequence(sequence_name, body_name))
           idx_begin += sequence2nframes_map_[sequence_name];
@@ -1123,22 +1140,30 @@ void YCBEvaluator::GenerateKDTrees() {
 
 bool YCBEvaluator::BodyExistsInSequence(const std::string &sequence_name,
                                         const std::string &body_name) const {
-  std::filesystem::path path{dataset_directory_ / "poses/ground_truth/" / (sequence_name + "_002_master_chef_can.txt")};
-  std::cerr << "[1] Checking path: " << path.string() << std::endl; // 경로 출력하여 디버깅
+  std::filesystem::path path{dataset_directory_ / "poses/ground_truth/" / (sequence_name + "_" + body_name + ".txt")};
+ 
+  if (std::filesystem::exists(path)) {
+    std::cerr << "BodyExistsInSequence [1] Checking path: " << path.string() << std::endl; // 경로 출력하여 디버깅
+    std::ifstream ifs{path.string(), std::ios::binary};
+    if (!ifs.is_open() || ifs.fail()) {
+      ifs.close();
+      std::cerr << "Could not open file stream " << path.string() << std::endl;
+      return false;
+    }
+    std::cout << "Opened file stream " << path.string() << std::endl;
 
-  std::ifstream ifs{path.string(), std::ios::binary};
-  if (!ifs.is_open() || ifs.fail()) {
-    ifs.close();
-    std::cerr << "Could not open file stream " << path.string() << std::endl;
+    std::string parsed;
+    while (std::getline(ifs, parsed, ' ')) {
+      // std::cout << body_name << " vs " << parsed << std::endl;
+      if (parsed == body_name) return true;
+      std::getline(ifs, parsed);
+    }
+    return false;
+  } else{
+    std::cerr << "BodyExistsInSequence [1] No file exists: " << path.string() << std::endl; // 경로 출력하여 디버깅
     return false;
   }
-
-  std::string parsed;
-  while (std::getline(ifs, parsed, ' ')) {
-    if (parsed == body_name) return true;
-    std::getline(ifs, parsed);
-  }
-  return false;
+  
 }
 
 bool YCBEvaluator::SequenceBodyNames(

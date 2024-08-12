@@ -82,10 +82,22 @@ bool LoaderColorCamera::UpdateImage(bool synchronized) {
 
   int n_zeros =
       std::max(n_leading_zeros_ - int(std::to_string(load_index_).length()), 0);
-  std::filesystem::path path{load_directory_ /
-                             (image_name_pre_ + std::string(n_zeros, '0') +
-                              std::to_string(load_index_) + image_name_post_ +
-                              "." + load_image_type_)};
+  // std::filesystem::path path{load_directory_ /
+  //                            (image_name_pre_ + std::string(n_zeros, '0') +
+  //                             std::to_string(load_index_) + image_name_post_ +
+  //                             "." + load_image_type_)};
+  // std::cout << "--------------------------------------\n";
+  // std::cout << "load_directory_: " << load_directory_ << "\n";
+  std::string last_part = load_directory_.filename().string();
+  // std::cout << "Extracted number: " << last_part << std::endl;
+
+  // load_directory_ = "/home/hee/workspace/src/3DObjectTracking/ICG/data/ycbv/test";
+  std::filesystem::path data_path = "/home/hee/workspace/src/3DObjectTracking/ICG/data/ycbv/test";
+  std::filesystem::path path{ data_path /
+                             (std::string(2, '0') + last_part) /
+                             "rgb" /
+                              (std::string(6 - std::to_string(load_index_).length(), '0') + std::to_string(load_index_) + "." + load_image_type_)};
+
   image_ = cv::imread(path.string(), cv::IMREAD_UNCHANGED);
   if (image_.empty()) {
     std::cerr << "Could not read image from " << path.string() << std::endl;
@@ -231,10 +243,22 @@ bool LoaderDepthCamera::UpdateImage(bool synchronized) {
 
   int n_zeros =
       std::max(n_leading_zeros_ - int(std::to_string(load_index_).length()), 0);
-  std::filesystem::path path{load_directory_ /
-                             (image_name_pre_ + std::string(n_zeros, '0') +
-                              std::to_string(load_index_) + image_name_post_ +
-                              "." + load_image_type_)};
+  // std::filesystem::path path{load_directory_ /
+  //                            (image_name_pre_ + std::string(n_zeros, '0') +
+  //                             std::to_string(load_index_) + image_name_post_ +
+  //                             "." + load_image_type_)};
+  // std::cout << "--------------------------------------\n";
+  // std::cout << "load_directory_: " << load_directory_ << "\n";
+  std::string last_part = load_directory_.filename().string();
+  // std::cout << "Extracted number: " << last_part << std::endl;
+
+  // load_directory_ = "/home/hee/workspace/src/3DObjectTracking/ICG/data/ycbv/test";
+  std::filesystem::path data_path = "/home/hee/workspace/src/3DObjectTracking/ICG/data/ycbv/test";
+  std::filesystem::path path{ data_path /
+                             (std::string(2, '0') + last_part) /
+                             "rgb" /
+                              (std::string(6 - std::to_string(load_index_).length(), '0') + std::to_string(load_index_) + "." + load_image_type_)};
+
   image_ = cv::imread(path.string(), cv::IMREAD_UNCHANGED);
   if (image_.empty()) {
     std::cerr << "Could not read image from " << path.string() << std::endl;
