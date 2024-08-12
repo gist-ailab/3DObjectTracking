@@ -75,13 +75,13 @@ int main() {
     t->set_n_update_iterations(2);
     t->set_n_corr_iterations(4);
   });
-  evaluator.set_evaluate_refinement(false);
+  evaluator.set_evaluate_refinement(false);     // Set to true to evaluate refinement
   evaluator.set_use_matlab_gt_poses(true);
   evaluator.set_run_sequentially(true);
   evaluator.set_use_random_seed(false);
   evaluator.set_n_vertices_evaluation(1000);
-  evaluator.set_visualize_frame_results(false);
-  evaluator.set_visualize_tracking(false);
+  evaluator.set_visualize_frame_results(true); // Set to true to visualize frame results
+  evaluator.set_visualize_tracking(true);      // Set to true to visualize tracking
   evaluator.set_use_region_modality(true);
   evaluator.set_use_depth_modality(true);
   evaluator.set_measure_occlusions_region(true);

@@ -69,11 +69,7 @@ cd build/
 ./examples/evaluate_ycb_dataset
 ```
 
-## dataset change
-/home/hee/workspace/src/3DObjectTracking/ICG/data/ycbv/poses/ground_truth/0048_002_master_chef_can_backup.txt
-
-
-
+<!-- 
 ---------------------------------------------------------------------
 ## RBOT dataset
 ```
@@ -93,4 +89,12 @@ make
 ```
 cd build/
 ./examples/evaluate_rbot_dataset
+``` -->
+
+
+## Test opencv 
+- make example_opencv.cpp file
+```
+g++ -o example_opencv example_opencv.cpp `pkg-config --cflags --libs opencv4`
+./example_opencv
 ```

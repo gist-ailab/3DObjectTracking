@@ -112,8 +112,7 @@ cv::Mat DepthCamera::NormalizedDepthImage(float min_depth,
   cv::threshold(normalized_image, normalized_image,
                 ushort((max_depth - min_depth) / depth_scale_), 0,
                 cv::THRESH_TRUNC);
-  cv::normalize(normalized_image, normalized_image, 0, 255, cv::NORM_MINMAX,
-                CV_8UC1);
+  cv::normalize(normalized_image, normalized_image, 0, 255, cv::NORM_MINMAX, CV_8UC1);
   return normalized_image;
 }
 

@@ -154,7 +154,7 @@ bool YCBEvaluator::Evaluate() {
     std::cerr << "Set up evaluator " << name_ << " first" << std::endl;
     return false;
   }
-  std::cout << "run_configurations_: " << run_configurations_.empty() << std::endl;
+  // std::cout << "Evaluate[0] run_configurations_: " << run_configurations_.empty() << std::endl;
   if (run_configurations_.empty()) return false;
 
   // visualize_tracking_ = true;
@@ -168,8 +168,11 @@ bool YCBEvaluator::Evaluate() {
     auto renderer_geometry_ptr{std::make_shared<icg::RendererGeometry>("rg")};
     std::cout << "Evaluate [2] " << std::endl;
     renderer_geometry_ptr->SetUp();
-    std::cout << "Evaluate [3] for" << std::endl;
+    std::cout << "Evaluate [3] for " << std::endl;
+    // std::cout << typeid(run_configurations_).name() << std::endl; // vector
     for (size_t i = 0; i < int(run_configurations_.size()); ++i) {
+      // std::cout << "Evaluate [3-1] Element " << i << ": " << run_configurations_[i] << std::endl;
+
       std::vector<SequenceResult> sequence_results;
       if (!EvaluateRunConfiguration(run_configurations_[i],
                                     renderer_geometry_ptr, &sequence_results))
@@ -278,10 +281,12 @@ bool YCBEvaluator::EvaluateRunConfiguration(
   const auto &keyframes{sequence2keyframes_map_.at(sequence_name)};
   size_t n_keyframes = keyframes.size();
 
+  std::cout << "EvaluateRunConfiguration [1] " << sequence_name << std::endl;
   // Initialize tracker
   std::shared_ptr<icg::Tracker> tracker_ptr;
   if (!SetUpTracker(run_configuration, renderer_geometry_ptr, &tracker_ptr))
     return false;
+  std::cout << "EvaluateRunConfiguration [2] " << sequence_name << std::endl;
 
   // Read gt poses and detector poses
   std::map<std::string, std::vector<icg::Transform3fA>> gt_body2world_poses;
@@ -289,26 +294,30 @@ bool YCBEvaluator::EvaluateRunConfiguration(
       detector_body2world_poses;
   std::map<std::string, std::vector<bool>> body_detected;
   for (const auto &body_name : tracked_body_names) {
+    std::cout << "EvaluateRunConfiguration [3] use_matlab_gt_poses_: " << use_matlab_gt_poses_ << std::endl;
     if (use_matlab_gt_poses_) {
       if (!LoadMatlabGTPoses(sequence_name, body_name,
-                             &gt_body2world_poses[body_name]))
-        return false;
+                             &gt_body2world_poses[body_name])){
+        return false;}
     } else {
       if (!LoadGTPoses(sequence_name, body_name,
-                       &gt_body2world_poses[body_name]))
-        return false;
+                       &gt_body2world_poses[body_name])){
+        return false;}
     }
+    std::cout << "EvaluateRunConfiguration [4] evaluate_refinement_: " << evaluate_refinement_ << std::endl;
     if (evaluate_refinement_) {
       if (!LoadDetectorPoses(sequence_name, body_name,
                              &detector_body2world_poses[body_name],
-                             &body_detected[body_name]))
-        return false;
+                             &body_detected[body_name])){
+        return false;}
     }
   }
 
   // Init results
+  std::cout << "EvaluateRunConfiguration [5] " << "init result" << std::endl;
   sequence_results->resize(evaluated_body_names.size());
   for (int i = 0; i < evaluated_body_names.size(); ++i) {
+    std::cout << "EvaluateRunConfiguration [6] " << sequence_name << "\t" << evaluated_body_names[i] << std::endl;
     (*sequence_results)[i].sequence_name = sequence_name;
     (*sequence_results)[i].body_name = evaluated_body_names[i];
     (*sequence_results)[i].frame_results.clear();
@@ -316,6 +325,7 @@ bool YCBEvaluator::EvaluateRunConfiguration(
 
   // Iterate over all frames
   for (int i = 0; i < n_keyframes; ++i) {
+    std::cout << "EvaluateRunConfiguration [7]-" << i << std::endl;
     Result general_results;
     general_results.frame_index = i;
 
@@ -552,6 +562,7 @@ void YCBEvaluator::ExecuteMeasuredTrackingCycle(
 
   // Update Cameras
   UpdateCameras(tracker_ptr, load_index);
+  std::cout << "ExecuteMeasuredTrackingCycle [1] " << tracker_ptr << "\t"<< load_index << std::endl;
 
   execution_times->start_modalities = 0.0f;
   execution_times->calculate_correspondences = 0.0f;
@@ -769,12 +780,12 @@ bool YCBEvaluator::LoadGTPoses(
     const std::string &sequence_name, const std::string &body_name,
     std::vector<icg::Transform3fA> *gt_body2world_poses) const {
   // Open poses file
-  std::filesystem::path path{dataset_directory_ / "poses" /
+  std::filesystem::path path{dataset_directory_ / "poses" / "ground_truth" /
                              (body_name + ".txt")};
   std::ifstream ifs{path.string(), std::ios::binary};
   if (!ifs.is_open() || ifs.fail()) {
     ifs.close();
-    std::cerr << "Could not open file stream " << path.string() << std::endl;
+    std::cerr << "Could not open file stream 1" << path.string() << std::endl;
     return false;
   }
 
@@ -831,7 +842,7 @@ bool YCBEvaluator::LoadMatlabGTPoses(
   std::ifstream ifs{path.string(), std::ios::binary};
   if (!ifs.is_open() || ifs.fail()) {
     ifs.close();
-    std::cerr << "Could not open file stream " << path.string() << std::endl;
+    std::cerr << "Could not open file stream 2" << path.string() << std::endl;
     return false;
   }
 
@@ -868,12 +879,13 @@ bool YCBEvaluator::LoadDetectorPoses(
     std::vector<icg::Transform3fA> *detector_body2world_poses,
     std::vector<bool> *body_detected) const {
   // Open detector poses file
+  std::cout << "LoadDetectorPoses [1] " << sequence_name << "\t" << body_name << "\t" << detector_folder_ << std::endl;
   std::filesystem::path path{external_directory_ / "poses" / detector_folder_ /
                              (sequence_name + "_" + body_name + ".txt")};
   std::ifstream ifs{path.string(), std::ios::binary};
   if (!ifs.is_open() || ifs.fail()) {
     ifs.close();
-    std::cerr << "Could not open file stream " << path.string() << std::endl;
+    std::cerr << "Could not open file stream 3" << path.string() << std::endl;
     return false;
   }
 
@@ -1039,7 +1051,7 @@ bool YCBEvaluator::LoadKeyframes() {
     std::ifstream ifs{path.string(), std::ios::binary};
     if (!ifs.is_open() || ifs.fail()) {
       ifs.close();
-      std::cerr << "Could not open file stream " << path.string() << std::endl;
+      std::cerr << "Could not open file stream 4" << path.string() << std::endl;
       success = false;
       continue;
     }
@@ -1084,13 +1096,13 @@ void YCBEvaluator::LoadPoseBegin() {
     std::map<std::string, int> sequence2pose_begin;
     for (int max_sequence_id : sequence_ids_) {
       int idx_begin = 0;
-      for (int sequence_id = 0; sequence_id < max_sequence_id; ++sequence_id) {
-        // std::cout << "LoadPoseBegin [3] sequence_ids_: " << sequence_ids_ << std::endl;
-        std::cout << "LoadPoseBegin [3] max_sequence_id: " << max_sequence_id << std::endl;
-        std::string sequence_name{SequenceIDToName(sequence_id)};
-        if (BodyExistsInSequence(sequence_name, body_name))
-          idx_begin += sequence2nframes_map_[sequence_name];
-      }
+      // for (int sequence_id = 0; sequence_id < max_sequence_id; ++sequence_id) {
+      //   // std::cout << "LoadPoseBegin [3] sequence_ids_: " << sequence_ids_ << std::endl;
+      //   std::cout << "LoadPoseBegin [3] max_sequence_id: " << sequence_id << "\t" << max_sequence_id << std::endl;
+      //   std::string sequence_name{SequenceIDToName(sequence_id)};
+      //   if (BodyExistsInSequence(sequence_name, body_name))
+      //     idx_begin += sequence2nframes_map_[sequence_name];
+      // }
       std::string max_sequence_name{SequenceIDToName(max_sequence_id)};
       sequence2pose_begin.insert({max_sequence_name, idx_begin});
     }
@@ -1147,7 +1159,7 @@ bool YCBEvaluator::BodyExistsInSequence(const std::string &sequence_name,
     std::ifstream ifs{path.string(), std::ios::binary};
     if (!ifs.is_open() || ifs.fail()) {
       ifs.close();
-      std::cerr << "Could not open file stream " << path.string() << std::endl;
+      std::cerr << "Could not open file stream 5" << path.string() << std::endl;
       return false;
     }
     std::cout << "Opened file stream " << path.string() << std::endl;
@@ -1174,7 +1186,7 @@ bool YCBEvaluator::SequenceBodyNames(
   std::ifstream ifs{path.string(), std::ios::binary};
   if (!ifs.is_open() || ifs.fail()) {
     ifs.close();
-    std::cerr << "Could not open file stream " << path.string() << std::endl;
+    std::cerr << "Could not open file stream 6" << path.string() << std::endl;
     return false;
   }
 
