@@ -60,6 +60,7 @@ ln -s "/media/hee/Extreme Pro/dataset/YCB-Video/HUGGING_FACE/YCB-Video-Base/imag
 ```
 cd build/
 cmake -DUSE_AZURE_KINECT=OFF -DUSE_REALSENSE=OFF ../
+/home/hee/.local/bin/cmake --build /home/hee/workspace/src/3DObjectTracking/ICG/build --config Debug --target all
 make
 ```
 
@@ -98,3 +99,5 @@ cd build/
 g++ -o example_opencv example_opencv.cpp `pkg-config --cflags --libs opencv4`
 ./example_opencv
 ```
+
+ExecuteMeasuredTrackingCycle

@@ -259,11 +259,13 @@ bool LoaderDepthCamera::UpdateImage(bool synchronized) {
                              "rgb" /
                               (std::string(6 - std::to_string(load_index_).length(), '0') + std::to_string(load_index_) + "." + load_image_type_)};
 
-  image_ = cv::imread(path.string(), cv::IMREAD_UNCHANGED);
+  // image_ = cv::imread(path.string(), cv::IMREAD_UNCHANGED);
+  image_ = cv::imread(path.string(), cv::IMREAD_GRAYSCALE);
   if (image_.empty()) {
     std::cerr << "Could not read image from " << path.string() << std::endl;
     return false;
   }
+  std::cout << "LoaderDepthCamera::UpdateImage image_.channels(): " << image_.channels() << std::endl;
 
   load_index_++;
   SaveImageIfDesired();
