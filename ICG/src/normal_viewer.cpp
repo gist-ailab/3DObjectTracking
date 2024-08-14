@@ -202,9 +202,9 @@ bool NormalDepthViewer::UpdateViewer(int save_index) {
 
   // Display and save images
   cv::Mat normalized_depth_image_rgb;
-  std::cout << "normalized_depth_image_rgb.channels(): " << normalized_depth_image_rgb.channels() << std::endl;
-  // std::cout << DepthCamera::image_.channels() << std::endl;
-  std::cout << "(depth_camera_ptr_->NormalizedDepthImage(min_depth_, max_depth_)).channels(): " << (depth_camera_ptr_->NormalizedDepthImage(min_depth_, max_depth_)).channels() << std::endl;
+  // std::cout << "normalized_depth_image_rgb.channels(): " << normalized_depth_image_rgb.channels() << std::endl;
+  // // std::cout << DepthCamera::image_.channels() << std::endl;
+  // std::cout << "(depth_camera_ptr_->NormalizedDepthImage(min_depth_, max_depth_)).channels(): " << (depth_camera_ptr_->NormalizedDepthImage(min_depth_, max_depth_)).channels() << std::endl;
   cv::cvtColor(depth_camera_ptr_->NormalizedDepthImage(min_depth_, max_depth_),
                normalized_depth_image_rgb, cv::COLOR_GRAY2BGR);
   DisplayAndSaveImage(save_index,

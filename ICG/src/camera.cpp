@@ -112,10 +112,10 @@ cv::Mat DepthCamera::NormalizedDepthImage(float min_depth,
   cv::threshold(normalized_image, normalized_image,
                 ushort((max_depth - min_depth) / depth_scale_), 0,
                 cv::THRESH_TRUNC);
-  cv::imwrite("normalized_image.png", normalized_image);
-  cv::imwrite("image_.png", image_);
-  std::cout << "image_.channels(): " << image_.channels() << std::endl;
-  std::cout << "normalized_image.channels(): " << normalized_image.channels() << std::endl;
+  // cv::imwrite("normalized_image.png", normalized_image);
+  // cv::imwrite("image_.png", image_);
+  // std::cout << "image_.channels(): " << image_.channels() << std::endl;
+  // std::cout << "normalized_image.channels(): " << normalized_image.channels() << std::endl;
   
   cv::normalize(normalized_image, normalized_image, 0, 255, cv::NORM_MINMAX, CV_8UC1);
   
@@ -126,7 +126,7 @@ cv::Mat DepthCamera::NormalizedDepthImage(float min_depth,
   //   cv::normalize(channels[i], channels[i], 0, 255, cv::NORM_MINMAX, CV_8UC1);
   // }
   // cv::merge(channels, normalized_image);  // 채널 병합
-  cv::imwrite("normalized_image_after.png", normalized_image);
+  // cv::imwrite("normalized_image_after.png", normalized_image);
 
   return normalized_image;
 }

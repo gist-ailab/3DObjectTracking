@@ -325,7 +325,7 @@ bool YCBEvaluator::EvaluateRunConfiguration(
 
   // Iterate over all frames
   for (int i = 0; i < n_keyframes; ++i) {
-    std::cout << "EvaluateRunConfiguration [7]-" << i << std::endl;
+    // std::cout << "EvaluateRunConfiguration [7] " << i << std::endl;
     Result general_results;
     general_results.frame_index = i;
 

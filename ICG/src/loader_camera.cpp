@@ -265,7 +265,7 @@ bool LoaderDepthCamera::UpdateImage(bool synchronized) {
     std::cerr << "Could not read image from " << path.string() << std::endl;
     return false;
   }
-  std::cout << "LoaderDepthCamera::UpdateImage image_.channels(): " << image_.channels() << std::endl;
+  // std::cout << "LoaderDepthCamera::UpdateImage image_.channels(): " << image_.channels() << std::endl;
 
   load_index_++;
   SaveImageIfDesired();

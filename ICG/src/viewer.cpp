@@ -54,11 +54,11 @@ Viewer::Viewer(const std::string &name,
     : name_{name}, metafile_path_{metafile_path} {}
 
 void Viewer::DisplayAndSaveImage(int save_index, const cv::Mat &image) {
-  std::cout << "Viewer::DisplayAndSaveImage " << display_images_ << " " << save_images_ << std::endl;
-  std::cout << "save_directory_ " << save_directory_ << std::endl;
-  std::cout << "name_ " << name_ << std::endl;
-  std::cout << "save_index " << save_index << std::endl;
-  std::cout << "save_image_type_ " << save_image_type_ << std::endl;
+  // std::cout << "Viewer::DisplayAndSaveImage " << display_images_ << " " << save_images_ << std::endl;
+  // std::cout << "save_directory_ " << save_directory_ << std::endl;
+  // std::cout << "name_ " << name_ << std::endl;
+  // std::cout << "save_index " << save_index << std::endl;
+  // std::cout << "save_image_type_ " << save_image_type_ << std::endl;
   
   if (display_images_) cv::imshow(name_, image);
   if (save_images_) {
