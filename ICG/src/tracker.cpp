@@ -306,7 +306,7 @@ bool Tracker::CalculateCorrespondences(int iteration, int corr_iteration) {
 }
 
 bool Tracker::VisualizeCorrespondences(int save_idx) {
-  bool imshow_correspondences = false;
+  bool imshow_correspondences = true;
   for (auto &modality_ptr : modality_ptrs_) {
     if (!modality_ptr->VisualizeCorrespondences(save_idx)) return false;
     if (modality_ptr->imshow_correspondence()) imshow_correspondences = true;

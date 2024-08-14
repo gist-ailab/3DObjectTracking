@@ -157,8 +157,6 @@ bool YCBEvaluator::Evaluate() {
   // std::cout << "Evaluate[0] run_configurations_: " << run_configurations_.empty() << std::endl;
   if (run_configurations_.empty()) return false;
 
-  // visualize_tracking_ = true;
-  // visualize_frame_results_ = true;
   std::cout << "Evaluate [1] " << "run_sequentially_: " << run_sequentially_ << "\tvisualize_tracking_: " << visualize_tracking_ << "\tvisualize_frame_results_: " << visualize_frame_results_ << std::endl;
 
   // Evaluate all run configurations

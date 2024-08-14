@@ -80,14 +80,15 @@ int main() {
   evaluator.set_run_sequentially(true);
   evaluator.set_use_random_seed(false);
   evaluator.set_n_vertices_evaluation(1000);
-  evaluator.set_visualize_frame_results(true); // Set to true to visualize frame results
-  evaluator.set_visualize_tracking(true);      // Set to true to visualize tracking
+  evaluator.set_visualize_frame_results(false); // Set to true to visualize frame results
+  evaluator.set_visualize_tracking(false);      // Set to true to visualize tracking
   evaluator.set_use_region_modality(true);
   evaluator.set_use_depth_modality(true);
   evaluator.set_measure_occlusions_region(true);
   evaluator.set_measure_occlusions_depth(true);
   evaluator.set_model_occlusions_region(false);
   evaluator.set_model_occlusions_depth(false);
+  evaluator.StartSavingImages("/home/hee/workspace/src/3DObjectTracking/ICG/output/visualize");
   evaluator.SetUp();
   bool eval_result = evaluator.Evaluate();
   evaluator.SaveResults(result_path);
