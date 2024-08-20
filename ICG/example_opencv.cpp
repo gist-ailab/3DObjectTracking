@@ -6,7 +6,7 @@ int main()
 	std::cout << "OpenCV version : " << CV_VERSION << std::endl;
 
 	cv::Mat img; // 이미지 처리를 위해 Mat 클래스 선언
-	img = cv::imread("tomato.jpg"); // 이미지 읽기
+	img = cv::imread("resources/tomato.jpg"); // 이미지 읽기
 
 	// 이미지가 없을 경우 예외 처리
 	if (img.empty())

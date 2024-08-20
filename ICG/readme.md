@@ -12,7 +12,7 @@ Tracking objects in 3D space and predicting their 6DoF pose is an essential task
 ## Videos
 <a href="https://www.youtube.com/watch?v=eYd_3TnJIaE">
 <p align="center">
- <img src="dlr_icg_video_presentation.png" height=300>
+ <img src="resources/dlr_icg_video_presentation.png" height=300>
     <br> 
     <em>Presentation CVPR 2022</em>
 </p>
@@ -20,7 +20,7 @@ Tracking objects in 3D space and predicting their 6DoF pose is an essential task
 
 <a href="https://youtu.be/qMr1RHCsnDk?t=10">
 <p align="center">
- <img src="dlr_icg_video_real-world.png" height=300>
+ <img src="resources/dlr_icg_video_real-world.png" height=300>
     <br> 
     <em>Real-World Experiments</em>
 </p>
@@ -28,7 +28,7 @@ Tracking objects in 3D space and predicting their 6DoF pose is an essential task
 
 <a href="https://youtu.be/qMr1RHCsnDk?t=143">
 <p align="center">
- <img src="dlr_icg_video_ycb-video.png" height=300>
+ <img src="resources/dlr_icg_video_ycb-video.png" height=300>
     <br> 
     <em>Evaluation on the YCB-Video Dataset</em>
 </p>
@@ -91,7 +91,7 @@ The library consists of multiple components with specific functionality that all
 
 Based on those components, a tracker can be configured. An example of a tracker that tracks two bodies using information from two color cameras and one depth camera is shown in the following illustration: 
 
-![icg components](dlr_icg_components.png)
+![icg components](resources/dlr_icg_components.png)
 
 Based on the geometry of *Body 1* and *Body 2*, region and depth models are generated before the tracking starts. The relation is illustrated by dashed lines. The models are then used by the respective modalities. To track *Body 1*, two region modalities that reference data from the two color cameras and a depth modality that considers data from the depth camera are used. For *Body 2*, a single region modality that considers information from *Color Camera 2* and a depth modality that uses data from the depth camera are employed. Information from the modalities of *Body 1* and *Body 2* is combined in the respective optimizers *Optimizer 1* and *Optimizer 2*. All depth modalities model occlusions using depth renderers. Renderer objects were thereby initialized from a corresponding camera. This is indicated by dashed lines. Note that all renderers reference *Body 1* and *Body 2* to focus the scene on those bodies and ensure that they are fully visible and at the same time fill the rendered images. Geometry information that is required for the rendering is referenced from the *RendererGeometry* object. In addition to modeling occlusions using renderers, depth measurements can also be considered. For this, *Region Modality 1* and *Region Modality 3* reference information from the *Depth Camera 1*, which is located close to *Color Camera 2*. To initialize the pose of both objects, two detectors that consider images from *Color Camera 1* are used. The pose is then refined by the *Refiner* object which takes into account all available information from *Optimizer 1* and *Optimizer 2*. The current predictions are visualized by *Viewer 1* which considers the scene provided by the *Renderer Geometry* and visualizes it on images from *Color Camera 1*. The entire process is coordinated by the *Tracker*, which references all required objects.
 

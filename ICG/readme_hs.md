@@ -120,22 +120,26 @@ sudo apt-get install libopencv-dev
 g++ realsense_test2.cpp -o realsense_test2 -I/usr/include/opencv4 -lrealsense2 -lopencv_core -lopencv_imgcodecs -lopencv_highgui -lopencv_imgproc
 ./realsense_test2
 ```
-![RGB](rgb.png)
-![Depth](depth.png)
+![RGB](resources/rgb.png)
+![Depth](resources/depth.png)
 
-3. build Doxygen
+7. **OpenMP**
+- OpenMP는 GCC 컴파일러에서 기본적으로 지원됨
+- OpenMP를 사용한 코드를 컴파일할 때 -fopenmp 플래그를 추가
 ```
-<!-- # download Doxygen from 
-tar -xvzf ~
-mkdir build && cd build
-### Error
-    sudo apt update
-    sudo apt-get install flex
-    sudo apt-get install bison
-cmake -G "Unix Makefiles" ..
-make -->
-sudo apt-get install doxygen
+## for example,
+gcc -fopenmp your_code.c -o your_program
 ```
+
+8. **doxygen**
+```
+## check if doxygen is installed
+doxygen --version
+
+## install if not installed
+sudo apt install doxygen
+```
+
 
 ## dataset setting
 --data
