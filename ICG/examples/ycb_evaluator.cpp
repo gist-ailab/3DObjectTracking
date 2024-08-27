@@ -570,16 +570,20 @@ void YCBEvaluator::ExecuteMeasuredTrackingCycle(
   execution_times->calculate_optimization = 0.0f;
   for (int corr_iteration = 0;
        corr_iteration < tracker_ptr->n_corr_iterations(); ++corr_iteration) {
+    
+    std::cout << "ExecuteMeasuredTrackingCycle [2] " << corr_iteration << std::endl;
     // Calculate correspondences
     begin_time = std::chrono::high_resolution_clock::now();
     tracker_ptr->CalculateCorrespondences(iteration, corr_iteration);
     execution_times->calculate_correspondences += ElapsedTime(begin_time);
 
+    std::cout << "ExecuteMeasuredTrackingCycle [3] " << std::endl;
     // Visualize correspondences
     int corr_save_idx =
         iteration * tracker_ptr->n_corr_iterations() + corr_iteration;
     tracker_ptr->VisualizeCorrespondences(corr_save_idx);
 
+    std::cout << "ExecuteMeasuredTrackingCycle [4] " << std::endl;
     for (int update_iteration = 0;
          update_iteration < tracker_ptr->n_update_iterations();
          ++update_iteration) {
@@ -603,6 +607,7 @@ void YCBEvaluator::ExecuteMeasuredTrackingCycle(
     }
   }
 
+  std::cout << "ExecuteMeasuredTrackingCycle [5] " << std::endl;
   // Calculate results
   begin_time = std::chrono::high_resolution_clock::now();
   tracker_ptr->CalculateResults(iteration);

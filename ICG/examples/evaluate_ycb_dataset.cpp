@@ -2,12 +2,26 @@
 // Copyright (c) 2022 Manuel Stoiber, German Aerospace Center (DLR)
 
 #include "/home/hee/workspace/src/3DObjectTracking/ICG/examples/ycb_evaluator.h"
+#include <ctime>
+#include <iomanip>
+#include <sstream>
 
 int main() {
+  // 현재 시간 가져오기
+  std::time_t t = std::time(nullptr);
+  std::tm* now = std::localtime(&t);
+
+  // 시간 형식을 지정하여 문자열로 변환
+  std::ostringstream oss;
+  oss << std::put_time(now, "%Y%m%d_%H%M");
+  std::string time_str = oss.str();
+
   // Directories
   std::filesystem::path dataset_directory{"/home/hee/workspace/src/3DObjectTracking/ICG/data/ycbv"};
   std::filesystem::path external_directory{"/home/hee/workspace/src/3DObjectTracking/ICG/external"};
-  std::filesystem::path result_path{"/home/hee/workspace/src/3DObjectTracking/ICG/output/output.txt"};
+  // std::filesystem::path result_path{"/home/hee/workspace/src/3DObjectTracking/ICG/output/output.txt"};
+  // std::filesystem::path result_path{"/home/hee/workspace/src/3DObjectTracking/ICG/output/output_" + time_str + ".txt"};
+
 
   // Dataset configuration
   std::vector<std::string> body_names{
@@ -35,6 +49,10 @@ int main() {
                                       };
   std::vector<int> sequence_ids{54};
   // std::vector<int> sequence_ids{48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59};
+
+  std::string body_name = body_names[0];
+  int sequence_id = sequence_ids[0];
+  std::filesystem::path result_path{"/home/hee/workspace/src/3DObjectTracking/ICG/output/output_" + std::to_string(sequence_id) + "_" + body_name + "_" + time_str + ".txt"};
 
   // Run experiments
   YCBEvaluator evaluator{"evaluator", dataset_directory, external_directory,

@@ -48,9 +48,21 @@ sudo apt-get install doxygen
 --data
     --ycbv
         --image_sets/keyframe.txt
+    --RBOT_dataset -> /media/hee/MGTEC/dataset/RBOT_dataset
 
 ```
 ln -s "/media/hee/Extreme Pro/dataset/YCB-Video/HUGGING_FACE/YCB-Video-Base/image_sets"
+
+lrwxrwxrwx 1 hee hee   79  7월 21 16:50 image_sets -> '/media/hee/Extreme Pro/dataset/YCB-Video/HUGGING_FACE/YCB-Video-Base/image_sets'
+lrwxrwxrwx 1 hee hee   58  8월 11 17:16 models -> /media/hee/MGTEC/dataset/YCB-Video/YCB_Video_Models/models
+lrwxrwxrwx 1 hee hee   78  7월 19 17:25 models_eval -> '/media/hee/Extreme Pro/dataset/YCB-Video/HUGGING_FACE/ycbv_models/models_eval/'
+lrwxrwxrwx 1 hee hee   78  7월 19 17:25 models_fine -> '/media/hee/Extreme Pro/dataset/YCB-Video/HUGGING_FACE/ycbv_models/models_fine/'
+lrwxrwxrwx 1 hee hee   63  7월 19 17:27 models_GT_color -> '/media/hee/Extreme Pro/dataset/YCB-Video/hipose/models_GT_color'
+drwxrwxr-x 2 hee hee 4096  8월  8 15:58 models_obj
+lrwxrwxrwx 1 hee hee   72  7월 19 17:25 models_ply -> '/media/hee/Extreme Pro/dataset/YCB-Video/HUGGING_FACE/ycbv_models/models'
+lrwxrwxrwx 1 hee hee   50  7월 21 16:43 poses -> '/media/hee/Extreme Pro/dataset/YCB-Video/ICG/poses'
+lrwxrwxrwx 1 hee hee   64  7월 19 17:24 test -> '/media/hee/Extreme Pro/dataset/YCB-Video/HUGGING_FACE/test/test/'
+lrwxrwxrwx 1 hee hee   55  7월 19 17:27 test_GT -> '/media/hee/Extreme Pro/dataset/YCB-Video/hipose/test_GT'
 
 
 ```
@@ -69,6 +81,11 @@ make
 cd build/
 ./examples/evaluate_ycb_dataset
 ```
+
+- YCBEvaluator::VisualizeResult  
+    - 콘솔에 주어진 결과를 포맷팅하여 출력
+- 
+
 
 <!-- 
 ---------------------------------------------------------------------
@@ -99,5 +116,13 @@ cd build/
 g++ -o example_opencv example_opencv.cpp `pkg-config --cflags --libs opencv4`
 ./example_opencv
 ```
+
+## Test time
+- make example_time.cpp file
+```
+g++ -o example_time example_time.cpp
+./example_time
+```
+
 
 ExecuteMeasuredTrackingCycle
