@@ -159,6 +159,10 @@ cd build/
 cmake -DUSE_AZURE_KINECT=OFF -DUSE_REALSENSE=OFF ../
 /home/hee/.local/bin/cmake --build /home/hee/workspace/src/3DObjectTracking/ICG/build --config Debug --target all
 make
+
+
+cmake -DUSE_AZURE_KINECT=OFF ../
+make
 ```
 
 ## Execute

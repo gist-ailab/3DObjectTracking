@@ -8,7 +8,7 @@ project(ICG)
 # Options
 # =============================================================================
 option(USE_AZURE_KINECT "Use Azure Kinect" OFF)
-option(USE_REALSENSE "Use RealSense D435" OFF)
+option(USE_REALSENSE "Use RealSense D435" ON)
 
 
 # Libraries
