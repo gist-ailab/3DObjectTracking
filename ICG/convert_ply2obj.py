@@ -3,9 +3,9 @@ import os
 import shutil
 
 # Define the paths to the input PLY file and the desired output directory
-ply_file_path = '/home/hee/workspace/src/3DObjectTracking/ICG/data/ycbv/models/obj_000002.ply'
-original_png_file_path = '/home/hee/workspace/src/3DObjectTracking/ICG/data/ycbv/models/obj_000002.png'
-output_dir = '/home/hee/workspace/src/3DObjectTracking/ICG/data/ycbv/models_obj/'
+ply_file_path = '/home/demo-ur5/heeseon/src/3DObjectTracking/ICG/data/ycbv/models/obj_000002.ply'
+original_png_file_path = '/home/demo-ur5/heeseon/src/3DObjectTracking/ICG/data/ycbv/models/obj_000002.png'
+output_dir = '/home/demo-ur5/heeseon/src/3DObjectTracking/ICG/data/ycbv/models_obj/'
 
 # Extract the base name (without extension) from the PLY file path
 base_name = os.path.splitext(os.path.basename(ply_file_path))[0]

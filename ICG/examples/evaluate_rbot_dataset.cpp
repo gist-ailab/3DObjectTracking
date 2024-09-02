@@ -5,9 +5,9 @@
 
 int main() {
   // Directories
-  std::filesystem::path dataset_directory{"/home/hee/workspace/src/3DObjectTracking/ICG/data/RBOT_dataset"};
-  std::filesystem::path external_directory{"/home/hee/workspace/src/3DObjectTracking/ICG/third_party"};
-  std::filesystem::path result_directory{"/home/hee/workspace/src/3DObjectTracking/ICG/output"};
+  std::filesystem::path dataset_directory{"/home/demo-ur5/heeseon/src/3DObjectTracking/ICG/data/RBOT_dataset"};
+  std::filesystem::path external_directory{"/home/demo-ur5/heeseon/src/3DObjectTracking/ICG/third_party"};
+  std::filesystem::path result_directory{"/home/demo-ur5/heeseon/src/3DObjectTracking/ICG/output"};
 
   // Dataset configuration
   std::vector<std::string> body_names{

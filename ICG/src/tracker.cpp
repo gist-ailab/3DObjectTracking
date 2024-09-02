@@ -306,7 +306,7 @@ bool Tracker::CalculateCorrespondences(int iteration, int corr_iteration) {
 }
 
 bool Tracker::VisualizeCorrespondences(int save_idx) {
-  bool imshow_correspondences = true;
+  bool imshow_correspondences = false;
   for (auto &modality_ptr : modality_ptrs_) {
     if (!modality_ptr->VisualizeCorrespondences(save_idx)) return false;
     if (modality_ptr->imshow_correspondence()) imshow_correspondences = true;
@@ -338,13 +338,15 @@ bool Tracker::CalculateOptimization(int iteration, int corr_iteration,
 }
 
 bool Tracker::VisualizeOptimization(int save_idx) {
-  bool imshow_pose_update = false;
+  bool imshow_pose_update = true;
   for (auto &modality_ptr : modality_ptrs_) {
     if (!modality_ptr->VisualizeOptimization(save_idx)) return false;
     if (modality_ptr->imshow_optimization()) imshow_pose_update = true;
   }
   if (imshow_pose_update) {
-    if (cv::waitKey(visualization_time_) == 'q') return false;
+    // if (cv::waitKey(visualization_time_) == 'q') return false;
+    cv::waitKey(1000);  // 1초 동안 대기 후 자동으로 창을 닫음
+    cv::destroyAllWindows();
   }
   return true;
 }

@@ -172,9 +172,9 @@ bool Body::LoadMeshData() {
   std::string warning;
   std::string error;
   // // //  CHANGE THIS TO THE PATH OF THE OBJECT YOU WANT TO TRACK  // // //
-  geometry_path_ = "/home/hee/workspace/src/3DObjectTracking/ICG/data/ycbv/models/021_bleach_cleanser/textured.obj";
-  // geometry_path_ = "/home/hee/workspace/src/3DObjectTracking/ICG/data/ycbv/models/002_master_chef_can/textured.obj";
-  // geometry_path_ = "/home/hee/workspace/src/3DObjectTracking/ICG/data/ycbv/models_obj/obj_000002.obj";
+  geometry_path_ = "/home/demo-ur5/heeseon/src/3DObjectTracking/ICG/data/ycbv/models/021_bleach_cleanser/textured.obj";
+  // geometry_path_ = "/home/demo-ur5/heeseon/src/3DObjectTracking/ICG/data/ycbv/models/002_master_chef_can/textured.obj";
+  // geometry_path_ = "/home/demo-ur5/heeseon/src/3DObjectTracking/ICG/data/ycbv/models_obj/obj_000002.obj";
   std::cout << "geometry_path_: " << geometry_path_ << std::endl;
 
   if (!tinyobj::LoadObj(&attributes, &shapes, &materials, &warning, &error,

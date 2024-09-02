@@ -113,12 +113,12 @@ lsusb
 g++ realsense_test.cpp -o realsense_test -lrealsense2
 ./realsense_test
 
-## run realsense_test2.cpp
+## run test_realsense.cpp
 sudo apt-get update
 sudo apt-get install libopencv-dev
 
-g++ realsense_test2.cpp -o realsense_test2 -I/usr/include/opencv4 -lrealsense2 -lopencv_core -lopencv_imgcodecs -lopencv_highgui -lopencv_imgproc
-./realsense_test2
+g++ test_realsense.cpp -o test_realsense -I/usr/include/opencv4 -lrealsense2 -lopencv_core -lopencv_imgcodecs -lopencv_highgui -lopencv_imgproc
+./test_realsense
 ```
 ![RGB](resources/rgb.png)
 ![Depth](resources/depth.png)
@@ -148,7 +148,10 @@ sudo apt install doxygen
 
 ```
 ln -s "/media/hee/Extreme Pro/dataset/YCB-Video/HUGGING_FACE/YCB-Video-Base/image_sets"
-
+ln -s "/media/demo-ur5/Extreme Pro/dataset/YCB-Video/PoseCNN/YCB_Video_Models/models"
+ln -s "/media/demo-ur5/Extreme Pro/dataset/YCB-Video/HUGGING_FACE/test/test"
+ln -s "/media/demo-ur5/Extreme Pro/dataset/YCB-Video/ICG/poses"
+ln -s "/media/demo-ur5/Extreme Pro/dataset/YCB-Video/HUGGING_FACE/YCB-Video-Base/image_sets"
 
 ```
 
@@ -157,7 +160,7 @@ ln -s "/media/hee/Extreme Pro/dataset/YCB-Video/HUGGING_FACE/YCB-Video-Base/imag
 ```
 cd build/
 cmake -DUSE_AZURE_KINECT=OFF -DUSE_REALSENSE=OFF ../
-/home/hee/.local/bin/cmake --build /home/hee/workspace/src/3DObjectTracking/ICG/build --config Debug --target all
+/home/hee/.local/bin/cmake --build /home/demo-ur5/heeseon/src/3DObjectTracking/ICG/build --config Debug --target all
 make
 
 
@@ -170,6 +173,9 @@ make
 cd build/
 ./examples/evaluate_ycb_dataset
 ```
+
+/home/hee/workspace/src/3DObjectTracking/
+/home/demo-ur5/heeseon/src/3DObjectTracking
 
 <!-- 
 ---------------------------------------------------------------------
@@ -195,10 +201,10 @@ cd build/
 
 
 ## Test opencv 
-- make example_opencv.cpp file
+- make test_opencv.cpp file
 ```
-g++ -o example_opencv example_opencv.cpp `pkg-config --cflags --libs opencv4`
-./example_opencv
+g++ -o test_opencv test_opencv.cpp `pkg-config --cflags --libs opencv4`
+./test_opencv
 ```
 
 ExecuteMeasuredTrackingCycle

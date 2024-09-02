@@ -10,5 +10,5 @@ build/*
 output/*
 external/*
 third_party/*
-
+external/poses/*
 

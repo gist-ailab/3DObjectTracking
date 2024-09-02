@@ -91,8 +91,8 @@ bool LoaderColorCamera::UpdateImage(bool synchronized) {
   std::string last_part = load_directory_.filename().string();
   // std::cout << "Extracted number: " << last_part << std::endl;
 
-  // load_directory_ = "/home/hee/workspace/src/3DObjectTracking/ICG/data/ycbv/test";
-  std::filesystem::path data_path = "/home/hee/workspace/src/3DObjectTracking/ICG/data/ycbv/test";
+  // load_directory_ = "/home/demo-ur5/heeseon/src/3DObjectTracking/ICG/data/ycbv/test";
+  std::filesystem::path data_path = "/home/demo-ur5/heeseon/src/3DObjectTracking/ICG/data/ycbv/test";
   std::filesystem::path path{ data_path /
                              (std::string(2, '0') + last_part) /
                              "rgb" /
@@ -252,8 +252,8 @@ bool LoaderDepthCamera::UpdateImage(bool synchronized) {
   std::string last_part = load_directory_.filename().string();
   // std::cout << "Extracted number: " << last_part << std::endl;
 
-  // load_directory_ = "/home/hee/workspace/src/3DObjectTracking/ICG/data/ycbv/test";
-  std::filesystem::path data_path = "/home/hee/workspace/src/3DObjectTracking/ICG/data/ycbv/test";
+  // load_directory_ = "/home/demo-ur5/heeseon/src/3DObjectTracking/ICG/data/ycbv/test";
+  std::filesystem::path data_path = "/home/demo-ur5/heeseon/src/3DObjectTracking/ICG/data/ycbv/test";
   std::filesystem::path path{ data_path /
                              (std::string(2, '0') + last_part) /
                              "rgb" /

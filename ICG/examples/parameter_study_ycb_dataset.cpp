@@ -5,8 +5,8 @@
 
 int main() {
   // Directories
-  std::filesystem::path dataset_directory{"/home/hee/workspace/src/3DObjectTracking/ICG/data/ycbv"};
-  std::filesystem::path external_directory{"/home/hee/workspace/src/3DObjectTracking/ICG/external"};
+  std::filesystem::path dataset_directory{"/home/demo-ur5/heeseon/src/3DObjectTracking/ICG/data/ycbv"};
+  std::filesystem::path external_directory{"/home/demo-ur5/heeseon/src/3DObjectTracking/ICG/external"};
 
   constexpr bool kEvaluateSundermeyer = false;
   constexpr bool kEvaluateCosyPose = false;
