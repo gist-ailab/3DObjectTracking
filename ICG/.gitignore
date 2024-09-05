@@ -8,6 +8,7 @@ poses/sundermeyer/*
 data/*
 build/*
 output/*
+visualize/*
 external/*
 third_party/*
 external/poses/*

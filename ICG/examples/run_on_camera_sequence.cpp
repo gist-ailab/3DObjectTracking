@@ -35,7 +35,7 @@ int main(int argc, char *argv[]) {
   constexpr bool kModelOcclusions = false;
   constexpr bool kVisualizePoseResult = false;
   constexpr bool kSaveImages = false;
-  const std::filesystem::path save_directory{""};
+  const std::filesystem::path save_directory{"output/"};
 
   // Set up tracker and renderer geometry
   auto tracker_ptr{std::make_shared<icg::Tracker>("tracker")};

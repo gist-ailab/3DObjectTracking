@@ -165,6 +165,7 @@ make
 
 
 cmake -DUSE_AZURE_KINECT=OFF ../
+cmake -DCMAKE_PREFIX_PATH=/usr/local/lib/cmake/k4a ../
 make
 ```
 
